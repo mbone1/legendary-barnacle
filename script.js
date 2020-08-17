@@ -67,138 +67,98 @@ $(".citySearch").click(function () {
       //◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙ ⮛ CREATING VARIABLES FOR DATA TO APPEND TO PAGE
       let UVindex = rspnsArray1[4]; // ◙◙◙◙◙ ⮘ Pulls UV Index from array
       //◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙ ⮙ CREATING VARIABLES FOR DATA TO APPEND TO PAGE
+      
       //◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙ ⮛ BUILDING TOP CARD
       $("#topCard").append("<img src=" + iconURL + ">"); // ⮘ Places image of current weather conditions to top card
       $("#cBody").append("<h5>" + location + "</h5>"); // ⮘ Places current location in top card
       $("#cBody").append(
         "<p class=card-text>" +
-          "Current Temperature: " +
-          temperature +
-          "°F" +
-          "</p>"
-      ); // ◙◙◙◙◙ ⮙ Places current temperature in top card
+        "Current Temperature: " +
+        temperature +
+        "°F" +
+        "</p>"
+        ); // ◙◙◙◙◙ ⮙ Places current temperature in top card
       $("#cBody").append(
         "<p class=card-text>" + "Humidity: " + humidity + "%" + "</p>"
-      ); // ◙◙◙◙◙ ⮙ Places current temperature in top card
-      $("#cBody").append(
-        "<p class=card-text>" + "Windspeed: " + windSpeed + "MPH" + "</p>"
-      ); // ◙◙◙◙◙ ⮙ Places current temperature in top card
-      $("#cBody").append(
-        "<p class=card-text>" + "UV Index: " + UVindex + "</p>"
-      ); // ◙◙◙◙◙ ⮙ Places UV index in top card
-      //◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙ ⮙ BUILDING TOP CARD
-      let fiveDay = // ◙◙◙◙◙ ⮘ creating URL for 5 Day weather forecast AJAX Call
-        "http://api.openweathermap.org/data/2.5/forecast?lat=" +
-        latitude +
+        ); // ◙◙◙◙◙ ⮙ Places current temperature in top card
+        $("#cBody").append(
+          "<p class=card-text>" + "Windspeed: " + windSpeed + "MPH" + "</p>"
+          ); // ◙◙◙◙◙ ⮙ Places current temperature in top card
+          $("#cBody").append(
+            "<p class=card-text>" + "UV Index: " + UVindex + "</p>"
+            ); // ◙◙◙◙◙ ⮙ Places UV index in top card
+            //◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙ ⮙ BUILDING TOP CARD
+            
+            
+            
+            
+            //◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙ ⮛ BUILDING URL FOR TERTIARY AJAX
+            let fiveDay = // ◙◙◙◙◙ ⮘ creating URL for 5 Day weather forecast AJAX Call
+            "http://api.openweathermap.org/data/2.5/forecast?lat=" +
+            latitude +
         "&lon=" +
         longitude +
         "&appid=" +
         apiKeyDef;
-      $.ajax({
-        //◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙ ⮙ TERTIARY AJAX CALL, BASED ON LATITUDE/LONGITUDE OF CITY SELECTED BY USER
-        url: fiveDay,
-        method: "GET",
-      }).then(function (response2) {
-        console.log(response2); // returns 8 objects for each day...
-        console.log(response2.list[0].main.temp);
-        console.log(response2.list[0].main.humidity);
-        console.log(response2.list[0].weather[0].icon);
-        let fiveDay4Cast = Object.values(response2);
+        //◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙ ⮙ BUILDING URL FOR TERTIARY AJAX CALL
+        
+        
+        
+        $.ajax({
+          //◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙ ⮙ TERTIARY AJAX CALL, BASED ON LATITUDE/LONGITUDE OF CITY SELECTED BY USER
+          url: fiveDay,
+          method: "GET",
+        }).then(function (response2) {
+          
+       //◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙ ⮛ SIMPLIFYING DATA FROM API CALLS/DECLARING VARIABLES FOR API CALLS
+       
+       let fiveDay4Cast = Object.values(response2);
         let fiveDayArray = fiveDay4Cast[3].slice(0, 40);
         console.log(fiveDayArray);
 
-        for (let i = 4; i < 40; i+= 8) {
-            const card5 = fiveDayArray[i];
-            let date5 = card5.dt_txt.slice(5, 10) + "-" + card5.dt_txt.slice(0, 4);
-            let icon5 = card5.weather[0].id
-            let temperature5 = (card5.main.temp - 273.15) * 1.8 + 32;
-            let humidity5 = card5.main.humidity;
-            
-            let cardSize = $("<div>")
-                .addClass("card text-white bg-primary mb-3 wholeCard");
-            $("#fiveD").append(cardSize)
-            let cardDate = $("<div>")
-                .addClass("card-header")
-                .text(date5);
-            $(".wholeCard").append(cardDate)    
-            
-            // let cardBody = $("<div>")
-            //     .addClass("card-body three");
-            // $("")
-            // let cardIcon = $("<h5>")
-            //     .addClass("cardbody")
-            //     .text(icon5);
-            // let cardTemperature = $("<h5>")
-            //     .addClass("cardbody")
-            //     .text(temperature5);
-            // let cardHumidity = $("<h5>")
-            //     .addClass("cardbody")
-            //     .text(humidity5);
-            
-            
-                
-            
-            
-
-            // $("#fiveD").attr("class", "card text-white bg-primary mb-3").append("<div>")
-            // $("#fiveD").attr("class", "card-header").text(date5).append("<div>")
-            // $("#fiveD").attr("class", "card-body").append("<div>")
-            // $("#fiveD").attr("class", "cardbody").text(icon5).append("<h5>")
-            // $("#fiveD").attr("class", "cardbody").text(temperature5).append("<h5>")
-            // $("#fiveD").attr("class", "cardbody").text(humidity5).append("<h5>")
-            
-
-
-            
-                
-            //   ); // ◙◙◙◙◙ ⮙ Places current temperature in top card
-            //   $("#fiveD").append(
-               
-            //   ); // ◙◙◙◙◙ ⮙ Places current temperature in top card
-            //   $("#fiveD").append(
-                
-
-
-           console.log(date5)
-           console.log(icon5)
-           console.log(temperature5)
-           console.log(humidity5)
-
-            
-        }
-
-         // var fDate5 = element.dt_txt.slice(5, 10) + "-" + element.dt_txt.slice(0, 4);
-
-        // need to pull date
-        // icon of weather
-        // temp list[0].main.temp
-        // humidity for each of the 5 days... list[0].main.humidity
-        // focus on 1 object within the object itself
-
-        // var fiveDayForecast = Object.values(response3);
-        // // console.log(fiveDayForecast);
-        // var targetedF5 = fiveDayForecast[3].slice(0, 40);
-        // console.log(targetedF5);
         //◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙ ⮙ SIMPLIFYING DATA FROM API CALLS/DECLARING VARIABLES FOR API CALLS
+        
+        //◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙ ⮛ FOR LOOP FOR BUILDING 5 DAY FORECAST
+        for (let i = 4; i < 40; i += 8) {
+          const card5 = fiveDayArray[i];
+          let date5 = card5.dt_txt.slice(5, 10) + "-" + card5.dt_txt.slice(0, 4);
+          let icon5 = card5.weather[0].icon
+          let temperature5 = (card5.main.temp - 273.15) * 1.8 + 32;
+          let temp5 = temperature5.toFixed();
+          let humidity5 = card5.main.humidity;
+          
+
+          let cardSize = $("<div>")
+            .addClass("card text-white bg-primary mb-3 wholeCard");
+            let cardBody = $("<div>")
+            .addClass("card-body")
+            .attr("id", "cBody");
+          let cardDate = $("<p>")
+            .attr("class", "card-title")
+            .text(date5);
+            let cardIcon = $("<p>")
+            .attr("class", "card-text")
+            .append("<img src = 'http://openweathermap.org/img/wn/" + icon5 + "@2x.png'>");
+            let cardTemperature = $("<p>")
+            .attr("class", "card=text")
+            .text("Temp: " + temp5 + " °F");
+            let cardHumidity = $("<p>")
+            .attr("class", "card-text")
+            .text("Humidity: " + humidity5 + "%");
+            cardBody.append(cardDate, cardIcon, cardTemperature, cardHumidity);
+            $("#fiveD").append(cardSize);
+            cardSize.append(cardBody);
+            //◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙ ⮙ BUILDING TOP CARD
+            
+          }
+  
+  
+        });
       });
+  
     });
-
-    // for (var y = 0; y < 40; y+=8) { }
-    //     var element = targetedF5[y];
-
-    //  http://api.openweathermap.org/data/2.5/uvi?appid={appid}&lat={lat}&lon={lon}
-
-    //   let temp = $("<h3>").text((rspnsArray[3].temp - 273.15) * 1.8 + 32);
-    //   let humidity = $("<h3>").text(rspnsArray[3].humidity);
-    //   let uvIndex = $("<h3>").text(rspnsArray[3].humidity);
-
-    //   $(".wDeets").append(location, temp, humidity);
-
-    //temp
-
-    //humidity
-
-    //windspeed
-    //uv index
   });
-});
+            
+            
+
+
