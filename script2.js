@@ -21,7 +21,7 @@ let apiKeyDef = "93b75b830f3da96083a3b6252ba8705b"; //◙◙◙◙◙◙◙◙�
 let apiCall = "http://api.openweathermap.org/data/2.5/weather?q="; //◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙ ⮘ queryURL for search based upon city name
 let apiCallLaLo = "http://api.openweathermap.org/data/2.5/uvi?appid="; //◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙ ⮘ queryURL for search based upon latitude + longitude
 //◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙
-
+var cityArr = [];
 
 $(".citySearch").click(function() {
     let city = $(".cityName").val();
@@ -29,16 +29,22 @@ $(".citySearch").click(function() {
     // localStorage.setItem(key1, city);
     let queryURL = apiCall + city + "&appid=" + apiKeyDef;
 
-    var cityArr = [];
+    if (cityArr.includes(city)) {
+        return;
+    } else {
+        cityArr.push(city)
+        $(".cities").append(
+            "<div>" +
+            "</div>" +
+            "<div>" +
+            "<button class=btn>" +
+            city + "</button>" +
+            "</div>");
+        localStorage.setItem("Cities", cityArr)
+    }
+    console.log(cityArr)
 
 
-    function addCity(city) {
-
-        cityArr.push(city);
-        console.log("Cities : " + cityArr.join(", "));
-        console.log(cityArr);
-    };
-    addCity();
 
     // function getAllItems() {
     //     for (x = 0; x <= localStorage.length - 1; x++) {
