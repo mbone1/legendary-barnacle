@@ -22,35 +22,46 @@ let apiCall = "http://api.openweathermap.org/data/2.5/weather?q="; //◙◙◙�
 let apiCallLaLo = "http://api.openweathermap.org/data/2.5/uvi?appid="; //◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙ ⮘ queryURL for search based upon latitude + longitude
 //◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙
 
-function getAllItems() {
-    for (x = 0; x <= localStorage.length - 1; x++) {
-        key = localStorage.key(i);
-        val = localStorage.getItem(key);
-        console.log(key)
-        console.log(val)
-
-        if (key === null) {
-            $(".cities").append(
-                "<div>" +
-                "</div>" +
-                "<div>" +
-                "<button class=btn>" +
-                "city" + "</button>" +
-                "</div>");
-        } else {
-            return;
-
-        }
-    }
-};
-getAllItems();
 
 $(".citySearch").click(function() {
-    const city = $(".cityName").val();
-    const key1 = city.slice(0, 3);
-    localStorage.setItem(key1, city);
+    let city = $(".cityName").val();
+    // const key1 = city.slice(0, 3);
+    // localStorage.setItem(key1, city);
     let queryURL = apiCall + city + "&appid=" + apiKeyDef;
 
+    var cityArr = [];
+
+
+    function addCity(city) {
+
+        cityArr.push(city);
+        console.log("Cities : " + cityArr.join(", "));
+        console.log(cityArr);
+    };
+    addCity();
+
+    // function getAllItems() {
+    //     for (x = 0; x <= localStorage.length - 1; x++) {
+    //         key = localStorage.key(x);
+    //         val = localStorage.getItem(key);
+    //         console.log(key)
+    //         console.log(val)
+    //         if (city === val) {
+    //             $(".cities").append(
+    //                 "<div>" +
+    //                 "</div>" +
+    //                 "<div>" +
+    //                 "<button class=btn>" +
+    //                 val + "</button>" +
+    //                 "</div>");
+    //             console.log(val)
+    //         } else {
+    //             return;
+
+    //         }
+    //     }
+    // };
+    // getAllItems();
 
 
     // localStorage.getItem()
@@ -190,14 +201,3 @@ $(".citySearch").click(function() {
         });
     });
 });
-
-
-
-
-
-
-// // var wTime = targetedF5[0].dt_txt.substring(11)
-
-// // for (var y = 0; y < 40; y++) {
-// // var element = targetedF5[y];
-// // if(targetedF5[y].dt_txt.substring(11) === "15:00:00"
