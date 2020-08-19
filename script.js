@@ -21,46 +21,42 @@ let apiKeyDef = "93b75b830f3da96083a3b6252ba8705b"; //◙◙◙◙◙◙◙◙�
 let apiCall = "http://api.openweathermap.org/data/2.5/weather?q="; //◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙ ⮘ queryURL for search based upon city name
 let apiCallLaLo = "http://api.openweathermap.org/data/2.5/uvi?appid="; //◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙ ⮘ queryURL for search based upon latitude + longitude
 //◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙
+var cityArr = [];
 
-function getAllItems() {
-    for (x = 0; x <= localStorage.length - 1; x++) {
-        key = localStorage.key(i);
-        val = localStorage.getItem(key);
-        console.log(key)
-        console.log(val)
+$(".citySearch").click(function walter() {
+    let city = $(".cityName").val();
 
-        if (key === null) {
-            $(".cities").append(
-                "<div>" +
-                "</div>" +
-                "<div>" +
-                "<button class=btn>" +
-                "city" + "</button>" +
-                "</div>");
-        } else {
-            return;
-
-        }
-    }
-};
-getAllItems();
-
-$(".citySearch").click(function() {
-    const city = $(".cityName").val();
-    const key1 = city.slice(0, 3);
-    localStorage.setItem(key1, city);
     let queryURL = apiCall + city + "&appid=" + apiKeyDef;
 
 
 
-    // localStorage.getItem()
+    if (cityArr.includes(city)) {
+        return;
+        // walter();
+    } else {
+        // $(".rightCOL").addClass("starthidden");
+        $("#ico").remove();
+        $("#loc").remove();
+        $("#temp").remove();
+        $("#hum").remove();
+        $("#wS").remove();
+        $("#uVin").remove();
+        $("#holder").remove();
+        cityArr.push(city);
+        $(".cities").append(
+                "<div>" +
+                "</div>" +
+                "<div>" +
+                "<button class=btn>" +
+                city +
+                "</button>" +
+                "</div>")
+            // walter();
+        console.log(cityArr);
+        localStorage.setItem("Cities", cityArr);
 
-    // //make an array from the items in local storage
-
-    // }
-
-
-
+        // $(".rightCOL").removeClass("starthidden");
+    }
     $.ajax({
         //◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙ ⮘ INITIAL AJAX CALL, BASED UPON WHATEVER CITY USER HAS ENTERED TO SEARCH UNDER
         url: queryURL,
@@ -90,12 +86,13 @@ $(".citySearch").click(function() {
             latitude +
             "&lon=" +
             longitude;
-
+        console.log(response);
         $.ajax({
             // ◙◙◙◙◙ ⮙ SECONDARY AJAX CALL, BASED ON LATITUDE/LONGITUDE OF CITY SELECTED BY USER
             url: indexUV,
             method: "GET",
         }).then(function(response1) {
+            console.log(response1);
 
             //◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙ ⮛ SIMPLIFYING DATA FROM API CALLS/DECLARING VARIABLES FOR API CALLS
             let rspnsArray1 = Object.values(response1); // ◙◙◙◙◙ ⮘ Changes response1 to an array
@@ -105,25 +102,28 @@ $(".citySearch").click(function() {
             //◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙ ⮙ CREATING VARIABLES FOR DATA TO APPEND TO PAGE
 
             //◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙ ⮛ BUILDING TOP CARD
-            $("#topCard").append("<img src=" + iconURL + ">"); // ⮘ Places image of current weather conditions to top card
-            $("#cBody").append("<h5>" + location + "</h5>"); // ⮘ Places current location in top card
+            $("#topCard").append("<img id=ico src=" + iconURL + ">"); // ⮘ Places image of current weather conditions to top card
+            $("#cBody").append("<h5 id=loc>" + location + "</h5>"); // ⮘ Places current location in top card
             $("#cBody").append(
-                "<p class=card-text>" +
+                "<p id=temp class=card-text>" +
                 "Current Temperature: " +
                 temperature +
                 "°F" +
                 "</p>"
             ); // ◙◙◙◙◙ ⮙ Places current temperature in top card
             $("#cBody").append(
-                "<p class=card-text>" + "Humidity: " + humidity + "%" + "</p>"
+                "<p id=hum class=card-text>" + "Humidity: " + humidity + "%" + "</p>"
             ); // ◙◙◙◙◙ ⮙ Places current temperature in top card
             $("#cBody").append(
-                "<p class=card-text>" + "Windspeed: " + windSpeed + "MPH" + "</p>"
+                "<p id=wS class=card-text>" + "Windspeed: " + windSpeed + "MPH" + "</p>"
             ); // ◙◙◙◙◙ ⮙ Places current temperature in top card
             $("#cBody").append(
-                "<p class=card-text>" + "UV Index: " + UVindex + "</p>"
+                "<p id=uVin class=card-text>" + "UV Index: " + UVindex + "</p>"
             ); // ◙◙◙◙◙ ⮙ Places UV index in top card
-            //◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙ ⮙ BUILDING TOP CARD
+            $("#fiveD").append(
+                    "<div class=card-deck id=holder></dov>"
+                )
+                //◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙ ⮙ BUILDING TOP CARD
 
             //◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙ ⮛ BUILDING URL FOR TERTIARY AJAX
             let fiveDay = // ◙◙◙◙◙ ⮘ creating URL for 5 Day weather forecast AJAX Call
@@ -145,7 +145,6 @@ $(".citySearch").click(function() {
                 let fiveDay4Cast = Object.values(response2);
                 let fiveDayArray = fiveDay4Cast[3].slice(0, 40);
 
-
                 //◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙ ⮙ SIMPLIFYING DATA FROM API CALLS/DECLARING VARIABLES FOR API CALLS
 
                 //◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙ ⮛ FOR LOOP FOR BUILDING 5 DAY FORECAST
@@ -160,11 +159,12 @@ $(".citySearch").click(function() {
 
                     let cardSize = $("<div>").addClass(
                         "card text-white bg-primary mb-3 wholeCard"
-                    );
-                    let cardBody = $("<div>").addClass("card-body").attr("id", "cBody");
-                    let cardDate = $("<p>").attr("class", "card-title").text(date5);
+                    ).attr("id", "cSi");
+                    let cardBody = $("<div>").addClass("card-body").attr("id", "cBody").attr("id", "cBo");
+                    let cardDate = $("<p>").attr("class", "card-title").attr("id", "cDa").text(date5);
                     let cardIcon = $("<p>")
                         .attr("class", "card-text")
+                        .attr("id", "cIc")
                         .append(
                             "<img src = 'http://openweathermap.org/img/wn/" +
                             icon5 +
@@ -172,32 +172,18 @@ $(".citySearch").click(function() {
                         );
                     let cardTemperature = $("<p>")
                         .attr("class", "card=text")
+                        .attr("id", "cTe")
                         .text("Temp: " + temp5 + " °F");
                     let cardHumidity = $("<p>")
                         .attr("class", "card-text")
+                        .attr("id", "cHu")
                         .text("Humidity: " + humidity5 + "%");
                     cardBody.append(cardDate, cardIcon, cardTemperature, cardHumidity);
-                    $("#fiveD").append(cardSize);
-                    cardSize.append(cardBody);
-                    //◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙ ⮙ BUILDING TOP CARD
-
-
-
-
-
+                    $("#holder").append(cardSize);
+                    cardSize.append(cardBody)
+                        //◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙◙ ⮙ BUILDING TOP CARD
                 }
             });
         });
     });
 });
-
-
-
-
-
-
-// // var wTime = targetedF5[0].dt_txt.substring(11)
-
-// // for (var y = 0; y < 40; y++) {
-// // var element = targetedF5[y];
-// // if(targetedF5[y].dt_txt.substring(11) === "15:00:00"

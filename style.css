@@ -1,5 +1,13 @@
-.navbar-nav.navbar-center {
+    /* .navbar-nav.navbar-center {
     position: absolute;
     left: 50%;
     transform: translatex(-50%);
-}
+} */
+    
+    .starthidden {
+        display: none;
+    }
+    
+    .becomeVisible {
+        display: block;
+    }
